@@ -1,4 +1,4 @@
-name: CI
+name: 🔍 CI
 
 on:
   push:
@@ -13,7 +13,7 @@ concurrency:
 
 jobs:
   backend:
-    name: Backend
+    name: 🔧 Backend
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -29,17 +29,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-backend-
 
-      - name: Install backend dependencies
+      - name: 📦 Install backend dependencies
         run: npm ci
 
-      - name: Type-check backend
+      - name: 🔎 Type-check backend
         run: npx tsc --noEmit
 
-      - name: Audit backend dependencies
+      - name: 🛡️ Audit backend dependencies
         run: npm audit --audit-level=high
 
   frontend:
-    name: Frontend
+    name: 🎨 Frontend
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -58,14 +58,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-frontend-
 
-      - name: Install frontend dependencies
+      - name: 📦 Install frontend dependencies
         run: npm ci
 
-      - name: Type-check frontend (svelte-check)
+      - name: 🔎 Type-check frontend (svelte-check)
         run: npm run check
 
-      - name: Build frontend
+      - name: 🏗️ Build frontend
         run: npm run build
 
-      - name: Audit frontend dependencies
+      - name: 🛡️ Audit frontend dependencies
         run: npm audit --audit-level=high
