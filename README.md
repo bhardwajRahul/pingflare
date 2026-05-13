@@ -10,11 +10,15 @@ https://github.com/user-attachments/assets/c33e20fd-6a82-4e57-b95a-ec06bbf701f5
 
 Uptime monitoring and heartbeats that runs entirely on the Cloudflare free tier. No servers, no subscriptions. Built with Cloudflare Workers and D1!
 
-Sends alerts through Discord, Slack, Telegram, Email, ntfy, Pushover, generic webhooks, and Apprise.
+Sends alerts through Discord, Slack, Telegram, Email, ntfy, Pushover, generic webhooks, Apprise, and Google Chat.
 
 ---
 
 ## Deploy
+
+> **Recommended:** Fork this repository to your own GitHub account. This gives you full control over updates, pull upstream changes whenever you want, and Cloudflare deploys automatically from your fork on every push.
+
+> **Quick start:** Use the button below to deploy instantly from the current version of this repository. Note that this won't receive future updates automatically.
 
 [![Deploy to Cloudflare](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/butialabs/pingflare)
 
