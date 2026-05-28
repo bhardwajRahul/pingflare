@@ -1,5 +1,10 @@
 let migrated = false
 
+/** For use in tests only, resets the migration flag so a fresh in-memory DB can be initialized. */
+export function resetMigratedFlag(): void {
+  migrated = false
+}
+
 const SCHEMA_SQL = `
 CREATE TABLE IF NOT EXISTS monitors (
   id text PRIMARY KEY NOT NULL,
@@ -78,6 +83,10 @@ CREATE TABLE IF NOT EXISTS heartbeat_tokens (
 );
 
 CREATE UNIQUE INDEX IF NOT EXISTS heartbeat_tokens_token_unique ON heartbeat_tokens (token);
+
+CREATE INDEX IF NOT EXISTS idx_sl_monitor_checked ON status_logs (monitor_id, checked_at);
+CREATE INDEX IF NOT EXISTS idx_sl_checked_at ON status_logs (checked_at);
+CREATE INDEX IF NOT EXISTS idx_monitors_active ON monitors (active);
 
 CREATE TABLE IF NOT EXISTS alert_state (
   monitor_id text PRIMARY KEY NOT NULL,

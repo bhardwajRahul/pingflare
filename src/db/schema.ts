@@ -1,4 +1,4 @@
-import { sqliteTable, text, integer, primaryKey } from 'drizzle-orm/sqlite-core'
+import { sqliteTable, text, integer, primaryKey, index } from 'drizzle-orm/sqlite-core'
 import { sql } from 'drizzle-orm'
 
 export const monitors = sqliteTable('monitors', {
@@ -33,7 +33,9 @@ export const monitors = sqliteTable('monitors', {
   cacheBooster: integer('cache_booster', { mode: 'boolean' }).notNull().default(false),
   createdAt: integer('created_at').notNull().default(sql`(unixepoch())`),
   updatedAt: integer('updated_at').notNull().default(sql`(unixepoch())`),
-})
+}, (t) => [
+  index('idx_monitors_active').on(t.active),
+])
 
 export const statusLogs = sqliteTable('status_logs', {
   id: text('id').primaryKey(),
@@ -45,7 +47,10 @@ export const statusLogs = sqliteTable('status_logs', {
   colo: text('colo'),
   countryCode: text('country_code'),
   originIp: text('origin_ip'),
-})
+}, (t) => [
+  index('idx_sl_monitor_checked').on(t.monitorId, t.checkedAt),
+  index('idx_sl_checked_at').on(t.checkedAt),
+])
 
 export const incidents = sqliteTable('incidents', {
   id: text('id').primaryKey(),
