@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.4.0] - 2026-05-29
+
+### Added
+- **Ping monitor type**: New monitor type `ping` sends an HTTP HEAD request to any target and considers the host **up** on any response regardless of status code (200, 404, 500, etc.) — only connection failures, host-not-found, and timeouts mark the host as **down**
+- **Port checking**: Ping targets accept `host:port` notation (e.g. `1.1.1.1:22`, `db.internal:5432`). When TCP connects but the port speaks a non-HTTP protocol (SSH, DNS-TCP, Redis, etc.) the check still returns **up** with message `Ping OK · :22 open`
+- **Automatic URL normalisation**: Bare IPs (`1.1.1.1`) and `host:port` entries get `http://` prepended automatically; `https://` URLs are left unchanged
+
+### Tests
+- Added 15 Vitest unit tests for `checkPing()` covering: HTTP 200/404/500 all reported as up, non-HTTP protocol response (port open) reported as up with port label, ECONNREFUSED/ENOTFOUND/ENETUNREACH reported as down, timeout, custom timeout value, HEAD method assertion, and URL normalisation for bare IP / host:port / http:// / https://
+
 ## [1.3.3] - 2026-05-28
 
 ### Added
